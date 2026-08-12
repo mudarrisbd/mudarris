@@ -1,0 +1,33 @@
+{
+  "name": "মুদাররিস — অনলাইন দ্বীনি শিক্ষা",
+  "short_name": "মুদাররিস",
+  "description": "অনলাইনে দ্বীনি শিক্ষা কোর্স, তাজভীদ, কুরআন তিলাওয়াত ও আরও অনেক কিছু।",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#DCD3B8",
+  "theme_color": "#0E3A28",
+  "lang": "bn",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
