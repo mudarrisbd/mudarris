@@ -403,92 +403,51 @@
     </div>
 
     <!-- 3. EXAMS VIEW (WITH DEMO QUIZ) -->
-    <div class="view" id="view-exams">
-      <div class="section">
-        <div class="section-title">অনলাইন কুইজ ও মডেল টেস্ট</div>
 <div id="view-exams" class="view">
-    <h3 style="color: var(--green-deep); margin-bottom: 10px;">অনলাইন পরীক্ষা ও মূল্যায়ন</h3>
+    <h3 style="color: var(--green-deep); margin-bottom: 12px;">অনলাইন পরীক্ষা ও মূল্যায়ন</h3>
     
-    <!-- MAIN EXAM CATEGORY TABS -->
-    <div style="display: flex; gap: 6px; margin-bottom: 15px; flex-wrap: wrap;">
-      <button class="btn" style="flex: 1; min-width: 130px; font-size: 11.5px; padding: 8px 4px;" onclick="showExamMainTab('subject-tests')">বিষয়ভিত্তিক টেস্ট</button>
-      <button class="btn ghost" style="flex: 1; min-width: 130px; font-size: 11.5px; padding: 8px 4px;" onclick="showExamMainTab('model-tests')">মডেল টেস্ট ও কুইজ</button>
+    <!-- পরীক্ষার প্রধান দুটি ঘর বা ক্যাটাগরি -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px;">
+      
+      <!-- ঘর ১: বিষয়ভিত্তিক টেস্ট -->
+      <div onclick="showExamType('subject-section')" style="background: white; padding: 15px; border-radius: 8px; border: 2px solid var(--green-deep); text-align: center; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <span style="font-size: 24px; display: block; margin-bottom: 5px;">📚</span>
+        <h4 style="margin: 0; color: var(--green-deep); font-size: 14px;">বিষয়ভিত্তিক টেস্ট</h4>
+        <p style="font-size: 11.5px; color: var(--muted); margin: 5px 0 0 0;">নাহু, সরফ, সাহিত্য ও ফিকহ</p>
+      </div>
+
+      <!-- ঘর ২: পূর্ণাঙ্গ মডেল টেস্ট -->
+      <div onclick="showExamType('model-section')" style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd; text-align: center; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <span style="font-size: 24px; display: block; margin-bottom: 5px;">📝</span>
+        <h4 style="margin: 0; color: var(--green-deep); font-size: 14px;">পূর্ণাঙ্গ মডেল টেস্ট</h4>
+        <p style="font-size: 11.5px; color: var(--muted); margin: 5px 0 0 0;">বিগত সালের প্রশ্নের আদলে</p>
+      </div>
+
     </div>
 
-    <!-- TAB 1: বিষয়ভিত্তিক টেস্ট (Subject-wise Tests) -->
-    <div id="subject-tests" class="exam-main-tab">
-      <!-- SUB-CATEGORIES FOR SUBJECTS -->
-      <div style="display: flex; gap: 5px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 5px;">
-        <button class="btn" style="font-size: 11px; padding: 6px 10px; white-space: nowrap;" onclick="showSubSubject('sub-nahu')">নাহু-সরফ</button>
-        <button class="btn ghost" style="font-size: 11px; padding: 6px 10px; white-space: nowrap;" onclick="showSubSubject('sub-literature')">আরবি সাহিত্য</button>
-        <button class="btn ghost" style="font-size: 11px; padding: 6px 10px; white-space: nowrap;" onclick="showSubSubject('sub-fiqh')">ফিকহ ও উসুল</button>
-        <button class="btn ghost" style="font-size: 11px; padding: 6px 10px; white-space: nowrap;" onclick="showSubSubject('sub-bangla')">বাংলা ব্যাকরণ ও সাধারণ জ্ঞান</button>
-      </div>
-
-      <!-- নাহু-সরফ বিভাগ -->
-      <div id="sub-nahu" class="subject-content">
-        <div style="background: white; padding: 12px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 12px;">
-          <h4 style="margin-top: 0; color: var(--green-deep); font-size: 14px;">নাহু-সরফ কুইজ</h4>
-          <p style="font-size: 13px;"><b>প্রশ্ন ১:</b> আরবি ব্যাকরণে 'قد' শব্দটি কার পূর্বে আসে?</p>
-          <button class="btn ghost" onclick="checkAnswer(this, false, 'nahu-res-1')" style="margin-bottom: 4px; text-align: left; font-size: 12px; padding: 6px;">ক) কেবল ইসিম-এর পূর্বে</button>
-          <button class="btn ghost" onclick="checkAnswer(this, true, 'nahu-res-1')" style="margin-bottom: 4px; text-align: left; font-size: 12px; padding: 6px;">খ) কেবল ফেল-এর পূর্বে</button>
-          <button class="btn ghost" onclick="checkAnswer(this, false, 'nahu-res-1')" style="text-align: left; font-size: 12px; padding: 6px;">গ) হরফ-এর পূর্বে</button>
-          <div id="nahu-res-1" style="margin-top: 6px; font-weight: bold; font-size: 12.5px;"></div>
-        </div>
-      </div>
-
-      <!-- আরবি সাহিত্য বিভাগ -->
-      <div id="sub-literature" class="subject-content" style="display: none;">
-        <div style="background: white; padding: 12px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 12px;">
-          <h4 style="margin-top: 0; color: var(--green-deep); font-size: 14px;">আরবি সাহিত্য কুইজ</h4>
-          <p style="font-size: 13px;"><b>প্রশ্ন ১:</b> المعلم الأول (প্রথম শিক্ষক) উপাধিটি কার সাথে সম্পর্কিত?</p>
-          <button class="btn ghost" onclick="checkAnswer(this, false, 'lit-res-1')" style="margin-bottom: 4px; text-align: left; font-size: 12px; padding: 6px;">ক) সিবাতাইনি</button>
-          <button class="btn ghost" onclick="checkAnswer(this, true, 'lit-res-1')" style="margin-bottom: 4px; text-align: left; font-size: 12px; padding: 6px;">খ) অ্যারিস্টটল (Aristotle)</button>
-          <button class="btn ghost" onclick="checkAnswer(this, false, 'lit-res-1')" style="text-align: left; font-size: 12px; padding: 6px;">গ) আল-খলিল ইবনে আহমদ</button>
-          <div id="lit-res-1" style="margin-top: 6px; font-weight: bold; font-size: 12.5px;"></div>
-        </div>
-      </div>
-
-      <!-- ফিকহ ও উসুল বিভাগ -->
-      <div id="sub-fiqh" class="subject-content" style="display: none;">
-        <div style="background: white; padding: 12px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 12px;">
-          <h4 style="margin-top: 0; color: var(--green-deep); font-size: 14px;">ফিকহ ও উসুলুল ফিকহ কুইজ</h4>
-          <p style="font-size: 13px;"><b>প্রশ্ন ১:</b> শরিয়তের মূল উৎস বা الأدلة الأصلية কয়টি?</p>
-          <button class="btn ghost" onclick="checkAnswer(this, false, 'fiqh-sub-1')" style="margin-bottom: 4px; text-align: left; font-size: 12px; padding: 6px;">ক) ২টি</button>
-          <button class="btn ghost" onclick="checkAnswer(this, false, 'fiqh-sub-1')" style="margin-bottom: 4px; text-align: left; font-size: 12px; padding: 6px;">খ) ৩টি</button>
-          <button class="btn ghost" onclick="checkAnswer(this, true, 'fiqh-sub-1')" style="text-align: left; font-size: 12px; padding: 6px;">গ) ৪টি (কুরআন, সুন্নাহ, ইজমা, কিয়াস)</button>
-          <div id="fiqh-sub-1" style="margin-top: 6px; font-weight: bold; font-size: 12.5px;"></div>
-        </div>
-      </div>
-
-      <!-- বাংলা ব্যাকরণ ও সাধারণ জ্ঞান বিভাগ -->
-      <div id="sub-bangla" class="subject-content" style="display: none;">
-        <div style="background: white; padding: 12px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 12px;">
-          <h4 style="margin-top: 0; color: var(--green-deep); font-size: 14px;">বাংলা ব্যাকরণ ও সাধারণ জ্ঞান কুইজ</h4>
-          <p style="font-size: 13px;"><b>প্রশ্ন ১:</b> 'উষ্মা বর্ণ' কোনগুলো?</p>
-          <button class="btn ghost" onclick="checkAnswer(this, true, 'bangla-sub-1')" style="margin-bottom: 4px; text-align: left; font-size: 12px; padding: 6px;">ক) শ, ষ, স, হ</button>
-          <button class="btn ghost" onclick="checkAnswer(this, false, 'bangla-sub-1')" style="margin-bottom: 4px; text-align: left; font-size: 12px; padding: 6px;">খ) য়, ড়, ঢ়</button>
-          <button class="btn ghost" onclick="checkAnswer(this, false, 'bangla-sub-1')" style="text-align: left; font-size: 12px; padding: 6px;">গ) উ, ঊ, ঋ</button>
-          <div id="bangla-sub-1" style="margin-top: 6px; font-weight: bold; font-size: 12.5px;"></div>
+    <!-- সাব-সেকশন ১: বিষয়ভিত্তিক টেস্টের কন্টেন্ট -->
+    <div id="subject-section" class="exam-sub-view">
+      <div style="background: white; padding: 15px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h4 style="margin-top: 0; color: var(--green-deep); font-size: 14px;">বিষয়ভিত্তিক কুইজ ও অনুশীলন</h4>
+        <p style="font-size: 13px; color: var(--muted);">এখানে বিভিন্ন বিষয়ের পৃথক কুইজ ও প্রশ্নমালা যুক্ত করা হবে।</p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+          <button class="btn ghost" style="flex: 1; min-width: 100px; font-size: 11px; padding: 6px;">নাহু-সরফ</button>
+          <button class="btn ghost" style="flex: 1; min-width: 100px; font-size: 11px; padding: 6px;">আরবি সাহিত্য</button>
+          <button class="btn ghost" style="flex: 1; min-width: 100px; font-size: 11px; padding: 6px;">ফিকহ ও উসুল</button>
         </div>
       </div>
     </div>
 
-    <!-- TAB 2: মডেল টেস্ট ও দৈনিক কুইজ (Model Test & Daily Quiz) -->
-    <div id="model-tests" class="exam-main-tab" style="display: none;">
-      <div style="background: white; padding: 15px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 12px;">
-        <h4 style="margin-top: 0; color: var(--green-deep);">পূর্ণাঙ্গ মডেল টেস্ট (শিক্ষক নিবন্ধন ফরম্যাট)</h4>
-        <p style="font-size: 13px; color: var(--muted);">বিগত সালের শিক্ষক নিবন্ধন পরীক্ষার প্রশ্নের আদলে ১০০ নম্বরের পূর্ণাঙ্গ মডেল টেস্ট এখানে যুক্ত হবে।</p>
-        <button class="btn" onclick="alert('দৈনিক কুইজ ও পূর্ণাঙ্গ মডেল টেস্ট শিঘ্রই লাইভ হবে ইনশাআল্লাহ!')">মডেল টেস্ট শুরু করুন</button>
-      </div>
-      <div style="background: white; padding: 15px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 12px;">
-        <h4 style="margin-top: 0; color: var(--green-deep);">আজকের দৈনিক কুইজ</h4>
-        <p style="font-size: 13px;">প্রতিদিন নতুন একটি প্রশ্ন দিয়ে আপনার প্রস্তুতি যাচাই করুন।</p>
-        <span style="font-size: 12px; background: #FAF6EC; padding: 4px 8px; border-radius: 4px; color: var(--green-deep); display: inline-block;">স্ট্যাটাস: প্রস্তুত হচ্ছে</span>
+    <!-- সাব-সেকশন ২: পূর্ণাঙ্গ মডেল টেস্টের কন্টেন্ট -->
+    <div id="model-section" class="exam-sub-view" style="display: none;">
+      <div style="background: white; padding: 15px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h4 style="margin-top: 0; color: var(--green-deep); font-size: 14px;">পূর্ণাঙ্গ মডেল টেস্ট ফরম্যাট</h4>
+        <p style="font-size: 13px; color: var(--muted);">শিক্ষক নিবন্ধন ও অন্যান্য পরীক্ষার পূর্ণাঙ্গ সেট।</p>
+        <button class="btn" onclick="alert('মডেল টেস্টের প্রশ্নপত্র প্রস্তুত করা হচ্ছে ইনশাআল্লাহ!')" style="font-size: 12px; padding: 8px;">মডেল টেস্ট শুরু করুন</button>
       </div>
     </div>
+
   </div>
-      </div>
     </div>
 
     <!-- 4. LECTURE SHEETS VIEW -->
