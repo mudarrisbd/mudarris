@@ -1,130 +1,912 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mudarris - মুদাররিস</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #f4f7f6;
-            color: #333;
-            line-height: 1.6;
-        }
-        /* হেডার ডিজাইন */
-        header {
-            background: linear-gradient(135deg, #004d40, #00796b);
-            color: #fff;
-            text-align: center;
-            padding: 30px 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        header h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-        header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        /* মূল কন্টেন্ট কন্টেইনার */
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 0 15px;
-        }
-        .section-title {
-            font-size: 18px;
-            color: #004d40;
-            margin: 20px 0 10px 0;
-            border-bottom: 2px solid #004d40;
-            padding-bottom: 5px;
-        }
-        /* গ্রিড লেআউট */
-        .grid-menu {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        .card {
-            background: #fff;
-            padding: 20px 15px;
-            border-radius: 10px;
-            text-align: center;
-            text-decoration: none;
-            color: #004d40;
-            font-weight: 600;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            border: 1px solid #e0e0e0;
-        }
-        .card:hover {
-            background: #004d40;
-            color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .full-width {
-            grid-column: span 2;
-            background: #e0f2f1;
-            color: #004d40;
-        }
-        .full-width:hover {
-            background: #004d40;
-            color: #fff;
-        }
-        /* ফুটার */
-        footer {
-            text-align: center;
-            padding: 15px;
-            background: #333;
-            color: #fff;
-            font-size: 13px;
-            margin-top: 30px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>Mudarris — মুদাররিস</title>
+
+<!-- PWA & App Icons -->
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" id="manifest-placeholder">
+<meta name="theme-color" content="#0E3A28">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="মুদাররিস">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --green-deep: #0E3A28;
+    --green-mid: #14432E;
+    --gold: #C89B3C;
+    --gold-soft: #E4C77A;
+    --cream: #FAF6EC;
+    --card: #FFFFFF;
+    --ink: #26231D;
+    --muted: #7A7262;
+    --line: #E4DCC4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Hind Siliguri', sans-serif;
+    background: #DCD3B8;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px 0;
+  }
+
+  h1, h2, h3, .serif { font-family: 'Noto Serif Bengali', serif; }
+
+  /* Phone Frame */
+  .frame {
+    width: 390px;
+    max-width: 94vw;
+    height: 844px;
+    max-height: 92vh;
+    background: var(--cream);
+    border-radius: 44px;
+    border: 8px solid #1B1812;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.45);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .notch {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 130px; height: 26px; background: #1B1812;
+    border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;
+    z-index: 50;
+  }
+
+  .statusbar {
+    height: 44px; flex: 0 0 auto; display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 0 24px 6px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; color: var(--ink);
+    z-index: 20;
+  }
+
+  .screen {
+    flex: 1 1 auto; overflow-y: auto; position: relative; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .screen::-webkit-scrollbar { display: none; }
+
+  .view { display: none; min-height: 100%; padding-bottom: 80px; }
+  .view.active { display: block; animation: fadein .35s ease; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Header & Logo */
+  .arch-header {
+    position: relative;
+    background: radial-gradient(120% 100% at 50% 0%, var(--green-mid) 0%, var(--green-deep) 70%);
+    padding: 20px 20px 25px;
+    color: #fff;
+    border-bottom-left-radius: 35% 25px;
+    border-bottom-right-radius: 35% 25px;
+  }
+
+  .top-row { display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  
+  .brand-mark {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    flex-shrink: 0;
+    overflow: hidden;
+    padding: 2px;
+  }
+
+  .brand-mark img {
+    width: 100%; height: 100%; object-fit: contain; border-radius: 50%;
+  }
+
+  .brand-name { font-family: 'Noto Serif Bengali'; font-weight: 700; font-size: 18px; }
+  .brand-sub { font-size: 11px; color: var(--gold-soft); margin-top: -2px; }
+
+  .btn-student-login {
+    background: var(--gold);
+    color: var(--green-deep);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: 'Hind Siliguri';
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    max-width: 110px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Content UI */
+  .section { padding: 16px 18px 10px; }
+  .section-title { font-size: 16px; margin-bottom: 12px; color: var(--green-deep); font-weight: 700; border-bottom: 2px solid var(--line); padding-bottom: 4px; }
+
+  .card-grid { display: flex; flex-direction: column; gap: 10px; }
+  .item-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px;
+    display: flex; gap: 12px; align-items: center; box-shadow: 0 2px 8px -4px rgba(0,0,0,0.08);
+    cursor: pointer;
+  }
+  .item-icon {
+    width: 38px; height: 38px; border-radius: 10px; background: var(--cream);
+    display: flex; align-items: center; justify-content: center; font-size: 18px; flex: 0 0 auto;
+  }
+  .item-info { flex: 1; }
+  .item-info h3 { font-size: 14px; font-weight: 600; color: var(--ink); }
+
+  .badge {
+    font-size: 10px; padding: 2px 8px; border-radius: 99px; font-weight: 600; display: inline-block;
+  }
+  .badge-gold { background: var(--gold-soft); color: var(--green-deep); }
+
+  /* Details Box */
+  .details-box {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-bottom: 12px;
+  }
+  .details-box h4 { color: var(--green-deep); margin-bottom: 6px; font-size: 15px; }
+  .details-box p, .details-box li { font-size: 13px; color: #444; line-height: 1.6; }
+  .details-box ul { padding-left: 18px; margin-top: 6px; }
+
+  /* Construction Card */
+  .under-dev {
+    text-align: center; padding: 30px 20px; background: #fff; border-radius: 16px; border: 1px dashed var(--line); margin-top: 15px;
+  }
+  .under-dev div { font-size: 36px; margin-bottom: 8px; }
+  .under-dev h3 { color: var(--green-deep); font-size: 16px; margin-bottom: 4px; }
+  .under-dev p { color: var(--muted); font-size: 12px; }
+
+  /* Modal System */
+  .modal-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.65); backdrop-filter: blur(4px);
+    z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-overlay.active { display: flex; animation: fadein .2s ease; }
+  
+  .modal-card {
+    background: #fff; width: 100%; max-width: 320px; border-radius: 20px; padding: 22px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative;
+  }
+  .close-modal {
+    position: absolute; top: 12px; right: 16px; font-size: 22px; color: var(--muted); cursor: pointer;
+  }
+  .field { margin-bottom: 12px; text-align: left; }
+  .field label { font-size: 12px; font-weight: 600; color: var(--muted); display: block; margin-bottom: 4px; }
+  .field input, .field select {
+    width: 100%; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line);
+    background: #fff; font-family: 'Hind Siliguri'; font-size: 13px; outline: none;
+  }
+  .field input:focus, .field select:focus { border-color: var(--green-mid); }
+
+  .btn {
+    width: 100%; padding: 10px; border-radius: 10px; border: none; background: var(--green-mid); color: #fff;
+    font-family: 'Hind Siliguri'; font-weight: 600; font-size: 14px; cursor: pointer; margin-top: 6px;
+  }
+  .btn.ghost { background: transparent; color: var(--green-mid); border: 1.5px solid var(--line); margin-top: 8px; }
+  .btn.danger { background: #d9534f; color: #fff; margin-top: 8px; }
+
+  /* Bottom Nav */
+  .bottom-nav {
+    position: absolute; left: 8px; right: 8px; bottom: 10px; height: 60px; background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(8px); border-radius: 18px; box-shadow: 0 8px 20px -6px rgba(0,0,0,0.2);
+    display: flex; align-items: center; justify-content: space-around; z-index: 40; border: 1px solid var(--line);
+    padding: 0 4px;
+  }
+  .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; color: var(--muted); cursor: pointer; background: none; border: none; flex: 1; }
+  .nav-item.active { color: var(--green-mid); font-weight: bold; }
+  .nav-item span { font-size: 10px; white-space: nowrap; }
+  .nav-item .icon { font-size: 15px; }
+
+  @media (max-width: 480px), (display-mode: standalone) {
+    body { padding: 0; background: var(--cream); }
+    .frame { width: 100%; max-width: 100%; height: 100vh; max-height: none; border-radius: 0; border: none; box-shadow: none; }
+    .notch, .statusbar { display: none; }
+  }
+</style>
 </head>
 <body>
 
-    <!-- হেডার অংশ -->
-    <header>
-        <h1>مدرس (Mudarris)</h1>
-        <p>দ্বীনি শিক্ষা ও শিক্ষক নিবন্ধন প্রস্তুতি প্ল্যাটফর্ম</p>
-    </header>
+<div class="frame">
+  <div class="notch"></div>
+  <div class="statusbar">
+    <span>৯:৪১</span>
+    <span>●●● মুদাররিস</span>
+  </div>
 
-    <div class="container">
-        
-        <!-- শিক্ষক নিবন্ধন ও স্টাডি মেটেরিয়াল -->
-        <div class="section-title">গুরুত্বপূর্ণ সেবা</div>
-        <div class="grid-menu">
-            <a href="#" class="card full-width">📄 শিক্ষক নিবন্ধন প্রস্তুতি ও পিডিএফ লাইব্রেরি</a>
-            <a href="#" class="card full-width">📖 সুরা নূর বিশেষ মডেল টেস্ট (৫০ প্রশ্ন)</a>
+  <div class="screen" id="screen">
+
+    <!-- COMMON HEADER FOR ALL PAGES -->
+    <div class="arch-header">
+      <div class="top-row">
+        <div class="brand">
+          <div class="brand-mark">
+            <img src="logo.png" alt="Mudarris Logo" onerror="this.src='icon-192.png'">
+          </div>
+          <div>
+            <div class="brand-name">Mudarris - মুদাররিস</div>
+            <div class="brand-sub">অনলাইন দ্বীনি শিক্ষা প্ল্যাটফর্ম</div>
+          </div>
         </div>
-
-        <!-- পরীক্ষা ক্যাটাগরি সেকশন -->
-        <div class="section-title">মডেল টেস্ট ক্যাটাগরি</div>
-        <div class="grid-menu">
-            <a href="#" class="card">১. তাফসীর ও উসুলুল তাফসীর</a>
-            <a href="#" class="card">২. হাদীস ও উসুলুল হাদীস</a>
-            <a href="#" class="card">৩. ফিকহ ও উসুলুল ফিকহ</a>
-            <a href="#" class="card">৪. আরবি সাহিত্য</a>
-            <a href="#" class="card">৫. আরবি ব্যাকরণ</a>
-            <a href="#" class="card">৬. বালাগাত ও মানতিক</a>
-            <a href="#" class="card full-width">৭. ইসলামী আকীদা</a>
-        </div>
-
+        <button class="btn-student-login" id="login-btn-text" onclick="handleAuthButtonClick()">শিক্ষার্থী লগইন</button>
+      </div>
     </div>
 
-    <!-- ফুটার অংশ -->
-    <footer>
-        <p>&copy; ২০২৬ Mudarris কর্তৃক পরিচালিত</p>
-    </footer>
+    <!-- 1. HOME VIEW -->
+    <div class="view active" id="view-home">
+      <div class="section">
+        <div class="section-title">প্রধান বিভাগসমূহ</div>
+        <div class="card-grid">
+          <div class="item-card" onclick="switchTab('view-courses')">
+            <div class="item-icon">📚</div>
+            <div class="item-info">
+              <h3>কোর্সসমূহ</h3>
+            </div>
+            <span class="badge badge-gold">চলমান</span>
+          </div>
+          <div class="item-card" onclick="switchTab('view-exams')">
+            <div class="item-icon">📝</div>
+            <div class="item-info">
+              <h3>পরীক্ষা</h3>
+            </div>
+          </div>
+          <div class="item-card" onclick="switchTab('view-sheets')">
+            <div class="item-icon">📄</div>
+            <div class="item-info">
+              <h3>লেকচারশিট</h3>
+            </div>
+          </div>
+          <div class="item-card" onclick="switchTab('view-notice')">
+            <div class="item-icon">📢</div>
+            <div class="item-info">
+              <h3>নোটিশ বোর্ড</h3>
+            </div>
+          </div>
+          <div class="item-card" onclick="switchTab('view-about')">
+            <div class="item-icon">🕌</div>
+            <div class="item-info">
+              <h3>আমাদের পরিচিতি</h3>
+            </div>
+          </div>
+          <div class="item-card" onclick="switchTab('view-faq')">
+            <div class="item-icon">❓</div>
+            <div class="item-info">
+              <h3>প্রশ্নোত্তর</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- 2. COURSES VIEW -->
+    <div class="view" id="view-courses">
+      <div class="section">
+        <div class="section-title">কোর্সসমূহ</div>
+        <div class="card-grid">
+          <div class="item-card" onclick="showSubCourse('registration-course')">
+            <div class="item-icon">🎓</div>
+            <div class="item-info">
+              <h3>শিক্ষক নিবন্ধন কোর্স</h3>
+            </div>
+            <span class="badge badge-gold">ভর্তি চলছে</span>
+          </div>
+          <div class="item-card" onclick="showSubCourse('academic-course')">
+            <div class="item-icon">📖</div>
+            <div class="item-info">
+              <h3>একাডেমিক কোর্স</h3>
+            </div>
+          </div>
+          <div class="item-card" onclick="showSubCourse('subject-course')">
+            <div class="item-icon">💡</div>
+            <div class="item-info">
+              <h3>বিষয়ভিত্তিক কোর্স</h3>
+            </div>
+          </div>
+          <div class="item-card" onclick="showSubCourse('book-course')">
+            <div class="item-icon">📚</div>
+            <div class="item-info">
+              <h3>গ্রন্থভিত্তিক কোর্স</h3>
+            </div>
+          </div>
+          <div class="item-card" onclick="showSubCourse('research-course')">
+            <div class="item-icon">🔬</div>
+            <div class="item-info">
+              <h3>গবেষণা কোর্স</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUB COURSE DETAILS CONTAINER -->
+        <div id="course-details-container" style="margin-top: 15px;">
+          <!-- 19th Registration Course Details -->
+          <div id="registration-course" class="details-box">
+            <h4>১৯তম শিক্ষক নিবন্ধন পরীক্ষার অনলাইন কোর্স</h4>
+            <p><b>পদের নাম:</b> আরবি প্রভাষক ও সহকারী মৌলভী</p>
+            <p><b>কোর্স স্ট্যাটাস:</b> চলমান</p>
+            <p><b>সময়:</b> বাদ মাগরিব</p>
+            <p><b>কোর্সের মেয়াদ:</b> পরীক্ষার পূর্ব পর্যন্ত</p>
+            <p><b>অনলাইন প্লাটফর্ম:</b> জুম (Zoom)</p>
+            <p><b>কোর্স ফি:</b> আরবি প্রভাষক ২০০০ টাকা, সহকারী মৌলভী - ১৫০০ টাকা</p>
+            <p><b>পেমেন্ট সিস্টেম:</b> 01735882748 (bKash, Nagad, Rocket)</p>
+            
+            <h4 style="margin-top: 12px;">কোর্সের বৈশিষ্ট্যসমূহ:</h4>
+            <ul>
+              <li>১. সাধারণ ও বিষয়ভিত্তিক অংশের যৌথ সমন্বয়</li>
+              <li>২. টপিকভিত্তিক লাইভ লেকচার</li>
+              <li>৩. পিডিএফ লেকচার শীট প্রদান</li>
+              <li>৪. ক্লাসের রেকর্ডেড ভিডিও প্রদান</li>
+              <li>৫. এমসিকিউ মডেল টেস্ট অনুশীলন</li>
+              <li>৬. অনলাইনে সার্বক্ষণিক সহায়তা</li>
+              <li>৭. নাহু-সরফ ও আরবি কথোপকথন বিষয়ে গুরুত্বারোপ</li>
+              <li>৮. শিক্ষাদান পদ্ধতি সম্পর্কে ধারণা প্রদান</li>
+              <li>৯. নিবন্ধন পরীক্ষার ফরম পূরণ বিষয়ক দিকনির্দেশনা</li>
+              <li>১০. শিক্ষকতায় ক্যারিয়ার উন্নয়ন বিষয়ক দিকনির্দেশনা</li>
+               <!-- শিক্ষক নিবন্ধন সেকশন কোড -->
+<div class="registration-section">
+    <!-- এখানে আপনার নতুন পিডিএফ বাটনটি বসান -->
+  <a href="https://drive.google.com/file/d/1tD_DRYkJPw-z3AB_K7T52j5n8FqQRYmx/view?usp=sharing" target="_blank" style="background-color: #28a745; color: white; padding: 10px 15px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 10px;">
+    📄 আরবি প্রভাষক সিলেবাস পর্যালোচনা পিডিএফ (ডাউনলোড/দেখুন)
+  </a>
+</div>
+</div>
+            </ul>
+<div class="registration-section">
+            <!-- ভর্তি ও জুম বাটন -->
+            <div style="margin-top: 15px; text-align: center;">
+              <button class="btn" style="background: var(--gold); color: var(--green-deep); font-weight: bold; padding: 12px; font-size: 15px;" onclick="openEnrollModal()">
+                📝 এখনই অনলাইন ভর্তি হোন
+              </button>
+              <button class="btn" style="background: #2D8CFF; color: #fff; font-weight: bold; padding: 10px; margin-top: 8px; font-size: 13.5px;" onclick="joinZoomClass()">
+                🎥 জুম লাইভ ক্লাসে জয়েন করুন (বাদ মাগরিব)
+              </button>
+            </div>
+          </div>
+
+          <!-- Other Courses (Under Development) -->
+          <div id="academic-course" class="under-dev" style="display:none;">
+            <div>🚧</div>
+            <h3>এ্যাপস নির্মানাধীন</h3>
+            <p>একাডেমিক কোর্সের কনটেন্ট শীঘ্রই যুক্ত করা হবে।</p>
+          </div>
+          <div id="subject-course" class="under-dev" style="display:none;">
+            <div>🚧</div>
+            <h3>এ্যাপস নির্মানাধীন</h3>
+            <p>বিষয়ভিত্তিক কোর্সের কনটেন্ট শীঘ্রই যুক্ত করা হবে।</p>
+          </div>
+          <div id="book-course" class="under-dev" style="display:none;">
+            <div>🚧</div>
+            <h3>এ্যাপস নির্মানাধীন</h3>
+            <p>গ্রন্থভিত্তিক কোর্সের কনটেন্ট শীঘ্রই যুক্ত করা হবে।</p>
+          </div>
+          <div id="research-course" class="under-dev" style="display:none;">
+            <div>🚧</div>
+            <h3>এ্যাপস নির্মানাধীন</h3>
+            <p>গবেষণা কোর্সের কনটেন্ট শীঘ্রই যুক্ত করা হবে।</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 3. EXAMS VIEW (WITH DEMO QUIZ) -->
+    <div class="view" id="view-exams">
+      <div class="section">
+        <div class="section-title">অনলাইন কুইজ ও মডেল টেস্ট</div>
+        <div class="details-box" id="quiz-container">
+          <h4>নমুনা কুইজ: আরবি ব্যাকরণ (নাহু)</h4>
+          <p style="margin-bottom: 10px;"><b>প্রশ্ন:</b> الفعل (ক্রিয়া) এর অন্যতম আলামত কোনটি?</p>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <button class="btn ghost" style="text-align:left; padding:8px 12px; font-size:13px;" onclick="checkAnswer(this, false)">ক) ال (আলিফ-লাম) যুক্ত হওয়া</button>
+            <button class="btn ghost" style="text-align:left; padding:8px 12px; font-size:13px;" onclick="checkAnswer(this, true)">খ) قد (ক্বাদ) যুক্ত হওয়া</button>
+            <button class="btn ghost" style="text-align:left; padding:8px 12px; font-size:13px;" onclick="checkAnswer(this, false)">গ) তানবীন হওয়া</button>
+            <button class="btn ghost" style="text-align:left; padding:8px 12px; font-size:13px;" onclick="checkAnswer(this, false)">ঘ) জের (Kasrah) গ্রহণ করা</button>
+          </div>
+          <div id="quiz-result" style="margin-top: 10px; font-weight: bold; font-size: 13px;"></div>
+        </div>
+        <div class="under-dev" style="margin-top: 10px;">
+          <div>📝</div>
+          <h3>পূর্ণাঙ্গ মডেল টেস্ট শীঘ্রই আসছে</h3>
+          <p>নিবন্ধন পরীক্ষার বিষয়ভিত্তিক মডেল টেস্ট নিয়মিত আপলোড করা হবে।</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. LECTURE SHEETS VIEW -->
+    <div class="view" id="view-sheets">
+      <div class="section">
+        <div class="section-title">লেকচারশিট</div>
+        <div class="under-dev">
+          <div>🚧</div>
+          <h3>এ্যাপস নির্মানাধীন</h3>
+          <p>পিডিএফ লেকচারশিট সেকশন শীঘ্রই প্রস্তুত হচ্ছে।</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. NOTICE BOARD VIEW -->
+    <div class="view" id="view-notice">
+      <div class="section">
+        <div class="section-title">নোটিশ বোর্ড</div>
+        <div class="under-dev">
+          <div>🚧</div>
+          <h3>এ্যাপস নির্মানাধীন</h3>
+          <p>সকল নোটিশ ও গুরুত্বপূর্ণ তথ্য পরবর্তীতে প্রকাশ করা হবে।</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. ABOUT US VIEW -->
+    <div class="view" id="view-about">
+      <div class="section">
+        <div class="section-title">আমাদের পরিচিতি</div>
+        <div class="details-box">
+          <p style="text-align: center; font-weight: bold; color: var(--green-deep); margin-bottom: 8px;">বিসমিল্লাহির রহমানির রহিম</p>
+          <p style="text-align: center; font-style: italic; margin-bottom: 12px; color: var(--gold);">"ইকরা বিসমি রাব্বিকাল্লাযী খালাক্ব — পাঠ করুন আপনার পালনকর্তার নামে যিনি সৃষ্টি করেছেন।"</p>
+          
+          <p><b>‘Mudarris - মুদাররিস’</b> হলো একটি আধুনিক দ্বীনী শিক্ষার অনলাইন প্রতিষ্ঠান। বিশুদ্ধ দ্বীনী ইলম অর্জনের লালসা পূরণ এবং ইসলামী শিক্ষা ও গবেষণার প্রসারে কাজ করে যাচ্ছে এই প্ল্যাটফর্ম। আমাদের মূল লক্ষ্য হলো সাধারণ শিক্ষার্থী, শিক্ষক ও দ্বীনপিপাসু অনুরাগী ব্যক্তিবর্গের নিকট ইসলামী জ্ঞানকে সহজ, সুশৃঙ্খল ও আধুনিক উপায়ে পৌঁছে দেওয়া।</p>
+
+          <h4 style="margin-top: 14px;">⚜️ আমাদের পাঠ্যক্রম ও কোর্সসমূহ</h4>
+          <p>আমরা কেবল তাত্ত্বিক শিক্ষাই প্রদান করি না, বরং বাস্তবিক প্রয়োগ ও দক্ষ শিক্ষক-গবেষক তৈরির উদ্দেশ্যে বহুমুখী কোর্স পরিচালনা করে থাকি:</p>
+          <ul>
+            <li><b>একাডেমিক কোর্স:</b> মানসম্মত দ্বীনী শিক্ষার সুনির্দিষ্ট পর্যায়ভিত্তিক পাঠ্যক্রম।</li>
+            <li><b>বিষয়ভিত্তিক কোর্স:</b> দ্বীনের মৌলিক ও প্রয়োজনীয় শাখাগুলোর ওপর বিশেষায়িত কোর্স।</li>
+            <li><b>গ্রন্থভিত্তিক কোর্স:</b> তুরাস (ধ্রুপদী) ও প্রখ্যাত নির্ভরযোগ্য বইগুলোর অধ্যায়ভিত্তিক প্রত্যক্ষ পাঠ।</li>
+            <li><b>শিক্ষক নিবন্ধন কোর্স:</b> দ্বীনী ও প্রাতিষ্ঠানিক প্রতিষ্ঠানে শিক্ষকতায় ক্যারিয়ার গড়ার উপযোগী প্রস্তুতি।</li>
+            <li><b>শিক্ষক প্রশিক্ষণ কোর্স:</b> আধুনিক শিক্ষাদান পদ্ধতি, ক্লাসরুম ম্যানেজমেন্ট ও দক্ষ শিক্ষক গড়ার ট্রেনিং।</li>
+            <li><b>গবেষণা বিষয়ক কোর্স:</b> ইসলামী সাহিত্য, ইতিহাস, ফিকহ ও হাদীস নিয়ে উচ্চতর গবেষণার নিয়মাবলী ও কৌশল শিক্ষা।</li>
+          </ul>
+
+          <h4 style="margin-top: 14px;">🎯 আমাদের লক্ষ্য ও উদ্দেশ্য</h4>
+          <ul>
+            <li>ঘরে বসেই দেশ ও বিদেশের শিক্ষার্থীদের জন্য মানসম্মত দ্বীনী ইলমের ব্যবস্থা করা।</li>
+            <li>ঐতিহ্যবাহী ইসলামী ইলমের সাথে আধুনিক অনলাইন শিখন পদ্ধতির সমন্বয় ঘটানো।</li>
+            <li>দক্ষ, আমলদার ও প্রজ্ঞাবান শিক্ষক এবং গবেষক গড়ে তোলা।</li>
+          </ul>
+
+          <h4 style="margin-top: 14px;">📞 আমাদের সাথে যোগাযোগ করুন</h4>
+          <p>আপনার যেকোনো পরামর্শ, জিজ্ঞাসা বা কোর্সে ভর্তির তথ্যের জন্য আমাদের সাথে সরাসরি যোগাযোগ করতে পারেন:</p>
+          <p style="margin-top: 6px;"><b>গুগল সাইট:</b> <a href="https://sites.google.com/view/mudarrisbd" target="_blank" style="color: var(--green-mid);">sites.google.com/view/mudarrisbd</a></p>
+          <p><b>ফেসবুক পেজ:</b> <a href="https://facebook.com/mudarris.bd" target="_blank" style="color: var(--green-mid);">facebook.com/mudarris.bd</a></p>
+          <p><b>ইমেইল:</b> mudarrisbd@gmail.com</p>
+          <p><b>মোবাইল / হেল্পলাইন:</b> 01735882748</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. FAQ VIEW -->
+    <div class="view" id="view-faq">
+      <div class="section">
+        <div class="section-title">প্রশ্নোত্তর</div>
+        <div class="under-dev">
+          <div>🚧</div>
+          <h3>এ্যাপস নির্মানাধীন</h3>
+          <p>সাধারণ জিজ্ঞাসাসমূহ শীঘ্রই এখানে যুক্ত করা হবে।</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- WHATSAPP FLOATING BUTTON -->
+  <a href="https://wa.me/8801735882748?text=আসসালামু%20আলাইকুম,%20মুদাররিস%20কোর্স%20সম্পর্কে%20জানতে%20চাই।" target="_blank" style="position: absolute; bottom: 75px; right: 15px; width: 48px; height: 48px; background-color: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 90; text-decoration: none;">
+    <span style="font-size: 24px; color: white;">💬</span>
+  </a>
+
+  <!-- STUDENT AUTH MODAL -->
+  <div class="modal-overlay" id="student-auth-modal">
+    <div class="modal-card">
+      <span class="close-modal" id="close-stu-modal">&times;</span>
+      
+      <!-- LOGIN FORM -->
+      <div id="student-login-box">
+        <h3 class="serif" style="text-align: center; color: var(--green-deep); margin-bottom: 14px;">শিক্ষার্থী প্রবেশ</h3>
+        <div class="field">
+          <label>ইমেইল এড্রেস</label>
+          <input type="email" id="stu-login-email" placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label>পাসওয়ার্ড</label>
+          <input type="password" id="stu-login-pass" placeholder="••••••••">
+        </div>
+        <button class="btn" id="btn-process-login">লগইন করুন</button>
+        <button class="btn ghost" id="btn-show-signup">নতুন অ্যাকাউন্ট তৈরি করুন</button>
+      </div>
+
+      <!-- SIGNUP FORM -->
+      <div id="student-signup-box" style="display: none;">
+        <h3 class="serif" style="text-align: center; color: var(--green-deep); margin-bottom: 14px;">নতুন শিক্ষার্থী নিবন্ধন</h3>
+        <div class="field">
+          <label>পূর্ণ নাম</label>
+          <input type="text" id="stu-reg-name" placeholder="আপনার নাম লিখুন">
+        </div>
+        <div class="field">
+          <label>মোবাইল নম্বর</label>
+          <input type="tel" id="stu-reg-phone" placeholder="017xxxxxxxx">
+        </div>
+        <div class="field">
+          <label>ইমেইল এড্রেস</label>
+          <input type="email" id="stu-reg-email" placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label>পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)</label>
+          <input type="password" id="stu-reg-pass" placeholder="••••••••">
+        </div>
+        <button class="btn" id="btn-process-signup">নিবন্ধন সম্পন্ন করুন</button>
+        <button class="btn ghost" id="btn-show-login">আগে অ্যাকাউন্ট আছে? লগইন করুন</button>
+      </div>
+
+      <!-- LOGGED IN USER PROFILE BOX -->
+      <div id="student-profile-box" style="display: none;">
+        <h3 class="serif" style="text-align: center; color: var(--green-deep); margin-bottom: 14px;">শিক্ষার্থী প্রোফাইল</h3>
+        <div class="details-box" style="margin-bottom: 12px; background: var(--cream);">
+          <p><b>নাম:</b> <span id="prof-name">-</span></p>
+          <p><b>ইমেইল:</b> <span id="prof-email">-</span></p>
+          <p><b>মোবাইল:</b> <span id="prof-phone">-</span></p>
+        </div>
+        <button class="btn danger" id="btn-process-logout">লগআউট করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ONLINE ENROLLMENT MODAL -->
+  <div class="modal-overlay" id="enroll-modal">
+    <div class="modal-card">
+      <span class="close-modal" id="close-enroll-modal">&times;</span>
+      <h3 class="serif" style="text-align: center; color: var(--green-deep); margin-bottom: 8px;">অনলাইন ভর্তি ফরম</h3>
+      <p style="font-size: 11.5px; color: var(--muted); text-align: center; margin-bottom: 12px;">
+        বিকাশ/নগদ/রকেট (<b>01735882748</b>) নম্বরে ফি পাঠিয়ে নিচের তথ্য পূরণ করুন।
+      </p>
+      <div class="field">
+        <label>শিক্ষার্থীর পূর্ণ নাম</label>
+        <input type="text" id="enr-name" placeholder="আপনার নাম">
+      </div>
+      <div class="field">
+        <label>মোবাইল নম্বর</label>
+        <input type="tel" id="enr-phone" placeholder="017xxxxxxxx">
+      </div>
+      <div class="field">
+        <label>কোর্স নির্বাচন করুন</label>
+        <select id="enr-course">
+          <option value="আরবি প্রভাষক (২০০০ টাকা)">আরবি প্রভাষক (২০০০ টাকা)</option>
+          <option value="সহকারী মৌলভী (১৫০০ টাকা)">সহকারী মৌলভী (১৫০০ টাকা)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>পেমেন্ট মেথড ও ট্রানজেকশন আইডি (TrxID)</label>
+        <input type="text" id="enr-trx" placeholder="e.g. bKash - 9J82KLMNO">
+      </div>
+      <button class="btn" id="btn-submit-enroll">ভর্তি আবেদন জমা দিন</button>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <div class="bottom-nav">
+    <button class="nav-item active" id="nav-home">
+      <span class="icon">🏠</span>
+      <span>হোম</span>
+    </button>
+    <button class="nav-item" id="nav-courses">
+      <span class="icon">📚</span>
+      <span>কোর্স</span>
+    </button>
+    <button class="nav-item" id="nav-exams">
+      <span class="icon">📝</span>
+      <span>পরীক্ষা</span>
+    </button>
+    <button class="nav-item" id="nav-sheets">
+      <span class="icon">📄</span>
+      <span>শিট</span>
+    </button>
+    <button class="nav-item" id="nav-about">
+      <span class="icon">🕌</span>
+      <span>পরিচিতি</span>
+    </button>
+  </div>
+</div>
+
+<!-- Firebase Modular SDK Script -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { 
+    getAuth, 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword, 
+    onAuthStateChanged, 
+    signOut 
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { 
+    getDatabase, 
+    ref, 
+    set, 
+    get, 
+    push, 
+    child 
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+  // Official Firebase Configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDReSr2wfxsR7MqkK6jEEUhJAq3fEQjwMU",
+    authDomain: "mudarris-d0c23.firebaseapp.com",
+    databaseURL: "https://mudarris-d0c23-default-rtdb.firebaseio.com",
+    projectId: "mudarris-d0c23",
+    storageBucket: "mudarris-d0c23.firebasestorage.app",
+    messagingSenderId: "302077905953",
+    appId: "1:302077905953:web:403c06b537e0eea70f2760",
+    measurementId: "G-HZEM3JRCJK"
+  };
+
+  // Initialize Firebase App, Auth & Realtime Database
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const database = getDatabase(app);
+
+  let currentUser = null;
+
+  // Listen for Persistent Auth State Changes
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      currentUser = user;
+      fetchUserProfile(user.uid);
+    } else {
+      currentUser = null;
+      document.getElementById('login-btn-text').innerText = "শিক্ষার্থী লগইন";
+    }
+  });
+
+  // Fetch student profile from Firebase Database
+  function fetchUserProfile(uid) {
+    const dbRef = ref(database);
+    get(child(dbRef, `students/${uid}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        document.getElementById('login-btn-text').innerText = data.name || "প্রোফাইল";
+        document.getElementById('prof-name').innerText = data.name || "N/A";
+        document.getElementById('prof-email').innerText = data.email || "N/A";
+        document.getElementById('prof-phone').innerText = data.phone || "N/A";
+
+        // Auto-fill enrollment form
+        document.getElementById('enr-name').value = data.name || "";
+        document.getElementById('enr-phone').value = data.phone || "";
+      } else {
+        document.getElementById('login-btn-text').innerText = "প্রোফাইল";
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
+  // Handle Header Button Click
+  window.handleAuthButtonClick = function() {
+    if (currentUser) {
+      document.getElementById('student-login-box').style.display = 'none';
+      document.getElementById('student-signup-box').style.display = 'none';
+      document.getElementById('student-profile-box').style.display = 'block';
+    } else {
+      document.getElementById('student-login-box').style.display = 'block';
+      document.getElementById('student-signup-box').style.display = 'none';
+      document.getElementById('student-profile-box').style.display = 'none';
+    }
+    document.getElementById('student-auth-modal').classList.add('active');
+  };
+
+  // Process Real Firebase Registration
+  document.getElementById('btn-process-signup').addEventListener('click', () => {
+    const name = document.getElementById('stu-reg-name').value.trim();
+    const phone = document.getElementById('stu-reg-phone').value.trim();
+    const email = document.getElementById('stu-reg-email').value.trim();
+    const pass = document.getElementById('stu-reg-pass').value.trim();
+
+    if (!name || !phone || !email || !pass) {
+      alert("অনুগ্রহ করে সকল ঘর পূরণ করুন।");
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, pass)
+      .then((userCredential) => {
+        const uid = userCredential.user.uid;
+        // Save user profile to Realtime Database
+        return set(ref(database, 'students/' + uid), {
+          name: name,
+          phone: phone,
+          email: email,
+          created_at: new Date().toISOString()
+        });
+      })
+      .then(() => {
+        alert("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
+        document.getElementById('student-auth-modal').classList.remove('active');
+      })
+      .catch((error) => {
+        alert("নিবন্ধন ব্যর্থ হয়েছে: " + error.message);
+      });
+  });
+
+  // Process Real Firebase Login
+  document.getElementById('btn-process-login').addEventListener('click', () => {
+    const email = document.getElementById('stu-login-email').value.trim();
+    const pass = document.getElementById('stu-login-pass').value.trim();
+
+    if (!email || !pass) {
+      alert("ইমেইল এবং পাসওয়ার্ড প্রদান করুন।");
+      return;
+    }
+
+    signInWithEmailAndPassword(auth, email, pass)
+      .then(() => {
+        alert("সফলভাবে লগইন হয়েছে!");
+        document.getElementById('student-auth-modal').classList.remove('active');
+      })
+      .catch((error) => {
+        alert("লগইন ভুল হয়েছে: ইমেইল বা পাসওয়ার্ড সঠিক নয়।");
+      });
+  });
+
+  // Process Logout
+  document.getElementById('btn-process-logout').addEventListener('click', () => {
+    signOut(auth).then(() => {
+      alert("সফলভাবে লগআউট করা হয়েছে।");
+      document.getElementById('student-auth-modal').classList.remove('active');
+    });
+  });
+
+  // Process Online Course Enrollment
+  document.getElementById('btn-submit-enroll').addEventListener('click', () => {
+    const name = document.getElementById('enr-name').value.trim();
+    const phone = document.getElementById('enr-phone').value.trim();
+    const course = document.getElementById('enr-course').value;
+    const trx = document.getElementById('enr-trx').value.trim();
+
+    if (!name || !phone || !trx) {
+      alert("অনুগ্রহ করে নাম, মোবাইল নম্বর এবং ট্রানজেকশন আইডি প্রদান করুন।");
+      return;
+    }
+
+    const newEnrollRef = push(ref(database, 'enrollments'));
+    set(newEnrollRef, {
+      uid: currentUser ? currentUser.uid : "GUEST",
+      student_name: name,
+      phone: phone,
+      course: course,
+      trx_id: trx,
+      submitted_at: new Date().toISOString()
+    })
+    .then(() => {
+      alert(`জাজাকাল্লাহু খাইরান ${name}!\nআপনার ভর্তি ফরম ও ফি-এর ট্রানজেকশন আইডি জমা হয়েছে।`);
+      document.getElementById('enroll-modal').classList.remove('active');
+      document.getElementById('enr-trx').value = "";
+    })
+    .catch((error) => {
+      alert("ভর্তি আবেদন জমা নেওয়া সম্ভব হয়নি: " + error.message);
+    });
+  });
+
+  // Tab Switching Handler
+  window.switchTab = function(viewId) {
+    const views = document.querySelectorAll('.view');
+    views.forEach(v => v.classList.remove('active'));
+    document.getElementById(viewId).classList.add('active');
+
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => item.classList.remove('active'));
+
+    if(viewId === 'view-home') document.getElementById('nav-home').classList.add('active');
+    if(viewId === 'view-courses') document.getElementById('nav-courses').classList.add('active');
+    if(viewId === 'view-exams') document.getElementById('nav-exams').classList.add('active');
+    if(viewId === 'view-sheets') document.getElementById('nav-sheets').classList.add('active');
+    if(viewId === 'view-about') document.getElementById('nav-about').classList.add('active');
+  };
+
+  // Event Listeners for Nav
+  document.getElementById('nav-home').addEventListener('click', () => switchTab('view-home'));
+  document.getElementById('nav-courses').addEventListener('click', () => switchTab('view-courses'));
+  document.getElementById('nav-exams').addEventListener('click', () => switchTab('view-exams'));
+  document.getElementById('nav-sheets').addEventListener('click', () => switchTab('view-sheets'));
+  document.getElementById('nav-about').addEventListener('click', () => switchTab('view-about'));
+
+  // Sub Course Toggle
+  window.showSubCourse = function(courseId) {
+    const courses = ['registration-course', 'academic-course', 'subject-course', 'book-course', 'research-course'];
+    courses.forEach(id => {
+      document.getElementById(id).style.display = 'none';
+    });
+    document.getElementById(courseId).style.display = 'block';
+  };
+
+  // Modal Handlers
+  document.getElementById('close-stu-modal').addEventListener('click', () => {
+    document.getElementById('student-auth-modal').classList.remove('active');
+  });
+
+  document.getElementById('btn-show-signup').addEventListener('click', () => {
+    document.getElementById('student-login-box').style.display = 'none';
+    document.getElementById('student-signup-box').style.display = 'block';
+  });
+
+  document.getElementById('btn-show-login').addEventListener('click', () => {
+    document.getElementById('student-signup-box').style.display = 'none';
+    document.getElementById('student-login-box').style.display = 'block';
+  });
+
+  window.openEnrollModal = function() {
+    document.getElementById('enroll-modal').classList.add('active');
+  };
+
+  document.getElementById('close-enroll-modal').addEventListener('click', () => {
+    document.getElementById('enroll-modal').classList.remove('active');
+  });
+
+  window.joinZoomClass = function() {
+    alert("জুম ক্লাসের সময়: বাদ মাগরিব। ক্লাসের সময় সরাসরি লাইভ জুম সেশন চালু হবে ইনশাআল্লাহ।");
+  };
+
+  // Quiz Checking
+  window.checkAnswer = function(btn, isCorrect) {
+    const resultDiv = document.getElementById('quiz-result');
+    if (isCorrect) {
+      btn.style.background = '#d4edda';
+      btn.style.borderColor = '#28a745';
+      resultDiv.style.color = '#155724';
+      resultDiv.innerText = "মাশাআল্লাহ! সঠিক উত্তর হয়েছে। (قد কেবল الفعل-এর পূর্বে আসে)";
+    } else {
+      btn.style.background = '#f8d7da';
+      btn.style.borderColor = '#dc3545';
+      resultDiv.style.color = '#721c24';
+      resultDiv.innerText = "ভুল উত্তর। সঠিক উত্তর হলো: খ) قد (ক্বাদ) যুক্ত হওয়া।";
+    }
+  };
+
+  // PWA Manifest Configuration
+  const manifestData = {
+    "name": "Mudarris",
+    "short_name": "Mudarris",
+    "start_url": "./",
+    "display": "standalone",
+    "background_color": "#FAF6EC",
+    "theme_color": "#0E3A28",
+    "icons": [
+      {
+        "src": "icon-192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "icon-512.jpg",
+        "sizes": "512x512",
+        "type": "image/jpeg"
+      }
+    ]
+  };
+  const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+  document.getElementById('manifest-placeholder').setAttribute('href', URL.createObjectURL(manifestBlob));
+
+  // Service Worker Registration
+  const swCode = `
+    const CACHE_NAME = 'mudarris-v13';
+    self.addEventListener('install', (e) => {
+      e.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(['./'])));
+    });
+    self.addEventListener('fetch', (e) => {
+      e.respondWith(caches.match(e.request).then((res) => res || fetch(e.request)));
+    });
+  `;
+  const swBlob = new Blob([swCode], { type: 'application/javascript' });
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register(URL.createObjectURL(swBlob));
+  }
+</script>
 </body>
 </html>
